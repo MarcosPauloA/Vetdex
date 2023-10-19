@@ -2,7 +2,7 @@ import React from 'react';
 
 import { View, StyleSheet, Text, FlatList } from 'react-native';
 
-import AppBar from './components/AppBar.js';
+import AppBar from '../components/AppBar.js';
 
 import MostraNomesPatologias from '../../controller/MostraNomesPatologias.js';
 

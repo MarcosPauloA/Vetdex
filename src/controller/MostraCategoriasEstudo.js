@@ -6,6 +6,8 @@ import imagemCategoriaEstudo from '../../assets/microscopio.png'
 
 import listaCategoriasEstudo from '../model/mocks/listaCategoriasEstudo.js';
 
+import { useNavigation } from '@react-navigation/native';
+
 const Item = ({item, onPress, backgroundColor, textColor}) => (
 
   // Botão customizável e interativo quando pressionado
@@ -24,7 +26,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 export default function MostraCategoriasEstudo() {
     
   const [selectedId, setSelectedId] = useState();
-
+  const navigation = useNavigation();
   const renderItem = ({item}) => {
     // O cor de fundo do botão muda da última para primeira quando clicado
     const backgroundColor = item.id === selectedId ? '#0981D1' : '#00AAFF';
@@ -35,7 +37,10 @@ export default function MostraCategoriasEstudo() {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={
+          () => { setSelectedId(item.id)
+          navigation.navigate('Patologias')
+        }}
         backgroundColor={backgroundColor}
         textColor={color}
       />

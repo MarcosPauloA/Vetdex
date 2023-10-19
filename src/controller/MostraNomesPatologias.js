@@ -2,17 +2,32 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import listaPatologias from '../model/mocks/listaPatologias'
 
-const Item = ({nomePatologia}) => (
+import { useNavigation } from '@react-navigation/native';
+
+const Item = ({nomePatologia, navigation, itemId}) => (
     <View style={estilos.item}>
-      <Text style={estilos.nome}>{ nomePatologia }</Text>
+      <Text 
+        style={estilos.nome} 
+        onPress={()=> { 
+          // Ao Pressionar navegar para a página de detalhes passando como parâmetro um JSON com o id do item da lista clicado para a página de detalhes
+          navigation.navigate('DetalhesDaPatologia',{
+            id: itemId,
+          });}}
+      >
+        { nomePatologia }
+      </Text>
     </View>
 )
 
 export default function MostraNomesPatologias(){
+  const navigation = useNavigation();
     return <>  
         <FlatList
         data={listaPatologias}
-        renderItem={({item}) => <Item nomePatologia={item.nomePatologia} />}
+        renderItem={({item}) => <Item nomePatologia={item.nomePatologia} 
+          navigation={navigation} 
+          itemId={item.id}
+        />}
         keyExtractor={ item  => item.id }
         />
     </>
