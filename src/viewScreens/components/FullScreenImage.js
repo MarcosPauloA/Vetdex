@@ -6,10 +6,9 @@ import {
   Text,
   StyleSheet,
   Image,
-  Pressable,
 } from "react-native";
 
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import listaPatologias from '../../model/mocks/listaPatologias'
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -22,9 +21,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     
   },
-  slideImage: { width: windowWidth, height: windowHeight, flex:1 },
-  slideTitle: { fontSize: 24  },
-  slideSubtitle: { fontSize: 18 },
+  slideImage: { width: windowWidth, height: windowHeight, contentFit:"contain", flex:1 },
+  slideTitle: { fontSize: 24, position:'absolute', top: 0, left: windowWidth/3, right: 0, bottom: 0  },
+  slideSubtitle: { fontSize: 18, position:'absolute', top: windowHeight/1.5, left: 0, right: 0, bottom: 0  },
 
   pagination: {
     bottom: 8,
@@ -44,21 +43,13 @@ const styles = StyleSheet.create({
   carousel: {height: windowHeight }
 });
 
-const Slide = memo(function Slide({ data, navigation, id }) {
+const Slide = memo(function Slide({ data }) {
   return (
     <View style={styles.slide}>
-      <Pressable
-        onPress={() => {
-          navigation.navigate('FullScreenImage',{
-            id: id,
-            idImagem: data.id,
-          });
-        }}>
-        <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
-        {/*<Text style={styles.slideTitle}>{data.title}</Text>
-        <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
-        */}
-      </Pressable>
+      <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
+      <Text style={styles.slideTitle}>{data.title}</Text>
+      <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
+  
     </View>
   );
 });
@@ -68,10 +59,8 @@ const Slide = memo(function Slide({ data, navigation, id }) {
 export default function Carousel() {
   // A route servirá para pegar os parâmetros passados da página anterior
   const route = useRoute();
-  const { id } = route.params;
+  const { id, idImagem } = route.params;
   const slideList = listaPatologias[id].imagens;
-
-  const navigation = useNavigation();
 
   function Pagination({ index }) {
     return (
@@ -131,7 +120,7 @@ export default function Carousel() {
   };
 
   const renderItem = useCallback(function renderItem({ item }) {
-    return <Slide data={item} navigation={navigation} id={id}/>;
+    return <Slide data={item} />;
   }, []);
 
   return (
@@ -146,6 +135,7 @@ export default function Carousel() {
         bounces={false}
         onScroll={onScroll}
         {...flatListOptimizationProps}
+        initialScrollIndex={idImagem}
       />
       <Pagination index={index}></Pagination>
     </>

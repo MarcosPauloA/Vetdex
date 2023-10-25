@@ -8,7 +8,7 @@ const listaPatologias = [
                 image: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d5d94ded-5529-433e-a697-a4332e879b88/d568m8k-9e10f389-c12d-4578-ba03-2b7d63a77889.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2Q1ZDk0ZGVkLTU1MjktNDMzZS1hNjk3LWE0MzMyZTg3OWI4OFwvZDU2OG04ay05ZTEwZjM4OS1jMTJkLTQ1NzgtYmEwMy0yYjdkNjNhNzc4ODkuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.QV7GYuINmZnY_zyjjmL6nB0UZLy_Y4IifvnT0TJoLkc",
                 id: 0,
                 title: 'titulo1',
-                subtitle: 'subtitulo1',
+                subtitle: 'subtitulo1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet nisl suscipit adipiscing. Leo urna molestie at elementum eu. Vivamus arcu felis bibendum ut tristique et. Mi sit amet mauris commodo quis imperdiet massa. ',
             },
             {
                 image: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34",

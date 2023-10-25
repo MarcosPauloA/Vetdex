@@ -9,6 +9,7 @@ import Login from './src/viewScreens/Login/Login.js'
 import HomeScreen from './src/viewScreens/Home/Home.js'
 import Patologias from './src/viewScreens/Patologias/Patologias.js'
 import DetalhesDaPatologia from './src/viewScreens/DetalhesDaPatologia/DetalhesDaPatologia.js'
+import FullScreenImage from './src/viewScreens/components/FullScreenImage.js'
 
 // Criando uma navegação em Stack
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Patologias" component={Patologias} />
           <Stack.Screen name="DetalhesDaPatologia" component={DetalhesDaPatologia} />
+          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

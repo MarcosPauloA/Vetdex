@@ -51,9 +51,9 @@ const estilos = StyleSheet.create({
     },
 
     paragrafo: {
-      fontSize: 15,
-      lineHeight: 26,
-      marginLeft: 11,
+      fontSize: 16,
+      //lineHeight: 26,
+      //marginLeft: 11,
       color: "#000000"
     },
 
