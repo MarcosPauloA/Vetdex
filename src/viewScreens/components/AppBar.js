@@ -11,8 +11,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 
-import listaPatologias from '../../model/mocks/listaPatologias'
-
 export default function appBar(){
     // O navigation servirá para retornar a página anterior quando clicado no ícone de voltar
     const navigation = useNavigation();
@@ -27,8 +25,8 @@ export default function appBar(){
         titulo = "Patologias" 
     } else if (route.name === "DetalhesDaPatologia") {
         nomeIcone = "arrow-circle-left"
-        const { id } = route.params;
-        titulo = listaPatologias[id].nomePatologia;
+        const { nomePatologia } = route.params;
+        titulo = nomePatologia.nomePatologia;
     }
     return<>
         <AppBar

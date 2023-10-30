@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useRef, useState } from "react";
+import React, { useCallback, memo, useRef, useState, useEffect } from "react";
 import {
   FlatList,
   View,
@@ -7,9 +7,8 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-
 import { useRoute } from '@react-navigation/native';
-import listaPatologias from '../../model/mocks/listaPatologias'
+import API_URL from "../../model/config";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -60,7 +59,26 @@ export default function Carousel() {
   // A route servirá para pegar os parâmetros passados da página anterior
   const route = useRoute();
   const { id, idImagem } = route.params;
-  const slideList = listaPatologias[id].imagens;
+
+  // Estado local para armazenar a lista de objetos de imagens
+  const [slideList, setSlideList] = useState([]); 
+
+  // Efeito colateral para buscar a lista de objetos de imagens ao montar o componente
+  useEffect(() => {
+    fetchImagens();
+  }, []);
+
+  // Função assíncrona para buscar a lista de objetos de imagens da API
+  const fetchImagens = async () => {
+    try {
+        const response = await fetch(`${API_URL}/listaPatologias/${id}`);
+        data = await response.json();
+        setSlideList(data.imagens);
+      
+    } catch(error){
+        console.error("Erro ao buscar lista de categorias de estudo ", error)
+    }
+  }
 
   function Pagination({ index }) {
     return (
@@ -108,7 +126,7 @@ export default function Carousel() {
     removeClippedSubviews: true,
     scrollEventThrottle: 16,
     windowSize: 2,
-    keyExtractor: useCallback(s => String(s.id), []),
+    keyExtractor: useCallback(s => String(s.idImagem), []),
     getItemLayout: useCallback(
       (_, index) => ({
         index,

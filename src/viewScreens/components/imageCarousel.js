@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useRef, useState } from "react";
+import React, { useCallback, memo, useRef, useState, useEffect } from "react";
 import {
   FlatList,
   View,
@@ -10,19 +10,18 @@ import {
 } from "react-native";
 
 import { useRoute, useNavigation } from '@react-navigation/native';
-import listaPatologias from '../../model/mocks/listaPatologias'
-
+import API_URL from "../../model/config";
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   slide: {
-    height: 'auto',
+    height: "auto",
     width: windowWidth,
     justifyContent: "center",
     alignItems: "center",
     
   },
-  slideImage: { width: windowWidth, height: windowHeight, flex:1 },
+  slideImage: { width: windowWidth, height: windowHeight, },
   slideTitle: { fontSize: 24  },
   slideSubtitle: { fontSize: 18 },
 
@@ -39,8 +38,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginHorizontal: 2,
   },
-  paginationDotActive: { backgroundColor: "lightblue" },
-  paginationDotInactive: { backgroundColor: "gray" },
+  paginationDotActive: { backgroundColor: "gray" },
+  paginationDotInactive: { backgroundColor: "lightblue" },
   carousel: {height: windowHeight }
 });
 
@@ -51,7 +50,7 @@ const Slide = memo(function Slide({ data, navigation, id }) {
         onPress={() => {
           navigation.navigate('FullScreenImage',{
             id: id,
-            idImagem: data.id,
+            idImagem: data.idImagem,
           });
         }}>
         <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
@@ -69,10 +68,30 @@ export default function Carousel() {
   // A route servirá para pegar os parâmetros passados da página anterior
   const route = useRoute();
   const { id } = route.params;
-  const slideList = listaPatologias[id].imagens;
 
+  // Estado local para armazenar a lista de objetos de imagens
+  const [slideList, setSlideList] = useState([]); 
+
+  // Efeito colateral para buscar a lista de objetos de imagens ao montar o componente
+  useEffect(() => {
+    fetchImagens();
+  }, []);
+
+  // Função assíncrona para buscar a lista de objetos de imagens da API
+  const fetchImagens = async () => {
+    try {
+        const response = await fetch(`${API_URL}/listaPatologias/${id}`);
+        data = await response.json();
+        setSlideList(data.imagens);
+      
+    } catch(error){
+        console.error("Erro ao buscar lista de categorias de estudo ", error)
+    }
+  }
+
+  // Variável utilizada para navegação entre telas
   const navigation = useNavigation();
-
+  
   function Pagination({ index }) {
     return (
       <View style={styles.pagination} pointerEvents="none">
@@ -119,7 +138,7 @@ export default function Carousel() {
     removeClippedSubviews: true,
     scrollEventThrottle: 16,
     windowSize: 2,
-    keyExtractor: useCallback(s => String(s.id), []),
+    keyExtractor: useCallback(s => String(s.idImagem), []),
     getItemLayout: useCallback(
       (_, index) => ({
         index,
@@ -134,20 +153,23 @@ export default function Carousel() {
     return <Slide data={item} navigation={navigation} id={id}/>;
   }, []);
 
-  return (
-    <>
-      <FlatList
-        data={slideList}
-        style={styles.carousel}
-        renderItem={renderItem}
-        pagingEnabled
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        onScroll={onScroll}
-        {...flatListOptimizationProps}
-      />
-      <Pagination index={index}></Pagination>
-    </>
-  );
-}
+  // Para que se não houver imagem o componente não ocupar espaço na tela foi criado essa condicional
+  if (JSON.stringify(slideList) == "[]"){return <></>}
+  else{
+    return (
+      <>
+        <FlatList
+          data={slideList}
+          style={styles.carousel}
+          renderItem={renderItem}
+          pagingEnabled
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          bounces={false}
+          onScroll={onScroll}
+          {...flatListOptimizationProps}
+        />
+        <Pagination index={index}></Pagination>
+      </>
+    );
+  }}

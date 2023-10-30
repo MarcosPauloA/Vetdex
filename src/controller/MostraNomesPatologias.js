@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import listaPatologias from '../model/mocks/listaPatologias'
-
+import API_URL from '../model/config';
 import { useNavigation } from '@react-navigation/native';
 
+// Item da lista
 const Item = ({nomePatologia, navigation, itemId}) => (
     <View style={estilos.item}>
       <Text 
@@ -11,7 +11,7 @@ const Item = ({nomePatologia, navigation, itemId}) => (
         onPress={()=> { 
           // Ao Pressionar navegar para a página de detalhes passando como parâmetro um JSON com o id do item da lista clicado para a página de detalhes
           navigation.navigate('DetalhesDaPatologia',{
-            id: itemId,
+            id: itemId, nomePatologia: {nomePatologia}
           });}}
       >
         { nomePatologia }
@@ -20,21 +20,47 @@ const Item = ({nomePatologia, navigation, itemId}) => (
 )
 
 export default function MostraNomesPatologias(){
+  // Efeito colateral para buscar a lista de patologias ao montar o componente
+  useEffect(() => {
+    fetchListaPatologias();
+  }, []);
+
+  // Estado local para armazenar a lista de patologias
+  const [listaPatologias, setListaPatologias] = useState([]); 
+
+  // Função assíncrona para buscar a lista de categoria de patologias da API
+  const fetchListaPatologias = async () => {
+    try {
+        const response = await fetch(`${API_URL}/listaPatologias`);
+        data = await response.json();
+        setListaPatologias(data);
+      
+    } catch(error){
+        console.error("Erro ao buscar lista de categorias de estudo ", error)
+    }
+  }
+
+  // Variável utilizada para navegação entre telas
   const navigation = useNavigation();
-    return <>  
-        <FlatList
-        data={listaPatologias}
-        renderItem={({item}) => <Item nomePatologia={item.nomePatologia} 
-          navigation={navigation} 
-          itemId={item.id}
-        />}
-        keyExtractor={ item  => item.id }
-        />
-    </>
+
+  // O retorno padrão desta tela é a flatlist abaixo
+  return <>  
+    <View style={estilos.container}>
+      <FlatList
+       data={listaPatologias}
+       renderItem={({item}) => <Item nomePatologia={item.nomePatologia} 
+        navigation={navigation} 
+        itemId={item.id}
+      />}
+       keyExtractor={ item  => item.id }
+      />
+    </View>
+  </>
 }
 
 
 const estilos = StyleSheet.create({
+    container: {paddingBottom: 50}, // Para que o appbar não tampe o último elemento
     item: {
       flexDirection: "row",
       borderBottomWidth: 1,
