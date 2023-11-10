@@ -10,14 +10,16 @@ Fase inicial do projeto, telas feitas com React Native <br/>
 
 # :hammer: Missing Features:
 
-- `Navegação Entre Telas:` Possivelmente utilizando -> https://reactnavigation.org/
-- `Integração do Banco de Dados`
-- `Query Feature` :mag_right:
-- `viewing images as a sliding gallery`: Possivelmente utilizando -------------------------------> https://github.com/jobtoday/react-native-image-viewing
+- ~~`Navegação Entre Telas`~~ 
+- ~~`Integração do Banco de Dados`~~
+- ~~`Query Feature`~~ :mag_right:
+- ~~`viewing images as a sliding gallery`~~
 - `3D handling`
 - `Topic Shortcuts`
-- `Login`
+- ~~`Login`~~ -> Apenas para admin interagirem com o BD
 - `Estilização:` Escolha de imagens e cores do app
+- `Salvamento local` 
+- `Otimização` 
 
 # :iphone: Screenshots das telas:
 
