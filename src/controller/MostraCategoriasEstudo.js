@@ -68,7 +68,7 @@ export default function MostraCategoriasEstudo() {
         // Quando clicado ele muda de cor e navega para outra tela
         onPress={
           () => { setSelectedId(item.id)
-          navigation.navigate('Patologias')
+          navigation.navigate('Patologias', {nomeBuscado:""})
         }}
         backgroundColor={backgroundColor}
         textColor={color}

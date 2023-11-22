@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     
   },
-  slideImage: { width: windowWidth, height: windowHeight, contentFit:"contain", flex:1 },
+  slideImage: { width: windowWidth, height: windowHeight, flex:1 },
   slideTitle: { fontSize: 24, position:'absolute', top: 0, left: windowWidth/3, right: 0, bottom: 0  },
   slideSubtitle: { fontSize: 18, position:'absolute', top: windowHeight/1.5, left: 0, right: 0, bottom: 0  },
 

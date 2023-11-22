@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Alert } from 'react-native';
 import API_URL from '../model/config';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import BuscaNomePatologia from './BuscaNomePatologia';
 
 // Item da lista
 const Item = ({nomePatologia, navigation, itemId}) => (
@@ -20,11 +21,19 @@ const Item = ({nomePatologia, navigation, itemId}) => (
 )
 
 export default function MostraNomesPatologias(){
+  // A route servirá para pegar os parâmetros passados da página anterior
+  const route = useRoute();
+  let { nomeBuscado } = route.params;
+  
+  if(nomeBuscado == ""){
   // Efeito colateral para buscar a lista de patologias ao montar o componente
   useEffect(() => {
     fetchListaPatologias();
-  }, []);
-
+  }, [nomeBuscado]);}
+  else{
+  useEffect(() => {
+    busca();
+  }, [nomeBuscado]);}
   // Estado local para armazenar a lista de patologias
   const [listaPatologias, setListaPatologias] = useState([]); 
 
@@ -43,6 +52,17 @@ export default function MostraNomesPatologias(){
   // Variável utilizada para navegação entre telas
   const navigation = useNavigation();
 
+  // Função de busca de palavra chave
+    async function busca(){
+      resultadoBusca = await BuscaNomePatologia(nomeBuscado.fraseBusca)
+      if (JSON.stringify(resultadoBusca) != "[]") {
+          setListaPatologias(resultadoBusca)
+          
+      }
+      else {
+          Alert.alert('Nenhuma patologia encontrada!')
+      }
+    }
   // O retorno padrão desta tela é a flatlist abaixo
   return <>  
     <View style={estilos.container}>
