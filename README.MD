@@ -6,7 +6,7 @@
     :construction:  Projeto em construção  :construction:
 </h4>
 
-Fase inicial do projeto, telas feitas com React Native <br/> 
+Fase inicial do projeto, telas feitas com React Native, versão web -> https://snack.expo.dev/@marcos_guida/af785f <br/> 
 
 # :hammer: Missing Features:
 
