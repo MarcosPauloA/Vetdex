@@ -7,10 +7,11 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import API_URL from "../../model/config";
-
+import { FontAwesome5 } from '@expo/vector-icons';
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
+import { IconButton } from "@react-native-material/core";
 
 const styles = StyleSheet.create({
   slide: {
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
     width: windowWidth,
     justifyContent: "center",
     alignItems: "center",
-    
+
   },
-  slideImage: { width: windowWidth, height: windowHeight, flex:1 },
-  slideTitle: { fontSize: 24, position:'absolute', top: 0, left: windowWidth/3, right: 0, bottom: 0  },
-  slideSubtitle: { fontSize: 18, position:'absolute', top: windowHeight/1.5, left: 0, right: 0, bottom: 0  },
+  slideImage: { width: windowWidth, height: windowHeight, flex: 1 },
+  slideTitle: { fontSize: 24, position: 'absolute', top: 0, left: windowWidth / 3, right: 0, bottom: 0 },
+  slideSubtitle: { fontSize: 18, position: 'absolute', top: windowHeight / 1.5, left: 0, right: 0, bottom: 0 },
 
   pagination: {
     bottom: 8,
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
   },
   paginationDotActive: { backgroundColor: "lightblue" },
   paginationDotInactive: { backgroundColor: "gray" },
-  carousel: {height: windowHeight }
+  carousel: { height: windowHeight },
+  icon: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }
 });
 
 const Slide = memo(function Slide({ data }) {
@@ -48,7 +50,7 @@ const Slide = memo(function Slide({ data }) {
       <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
       <Text style={styles.slideTitle}>{data.title}</Text>
       <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
-  
+
     </View>
   );
 });
@@ -56,12 +58,14 @@ const Slide = memo(function Slide({ data }) {
 
 
 export default function Carousel() {
+  // O navigation servirá para retornar a página anterior quando clicado no ícone de voltar
+  const navigation = useNavigation();
   // A route servirá para pegar os parâmetros passados da página anterior
   const route = useRoute();
   const { id, idImagem } = route.params;
 
   // Estado local para armazenar a lista de objetos de imagens
-  const [slideList, setSlideList] = useState([]); 
+  const [slideList, setSlideList] = useState([]);
 
   // Efeito colateral para buscar a lista de objetos de imagens ao montar o componente
   useEffect(() => {
@@ -71,12 +75,12 @@ export default function Carousel() {
   // Função assíncrona para buscar a lista de objetos de imagens da API
   const fetchImagens = async () => {
     try {
-        const response = await fetch(`${API_URL}/listaPatologias/${id}`);
-        data = await response.json();
-        setSlideList(data.imagens);
-      
-    } catch(error){
-        console.error("Erro ao buscar lista de categorias de estudo ", error)
+      const response = await fetch(`${API_URL}/listaPatologias/${id}`);
+      data = await response.json();
+      setSlideList(data.imagens);
+
+    } catch (error) {
+      console.error("Erro ao buscar lista de categorias de estudo ", error)
     }
   }
 
@@ -143,6 +147,8 @@ export default function Carousel() {
 
   return (
     <>
+
+
       <FlatList
         data={slideList}
         style={styles.carousel}
@@ -155,6 +161,9 @@ export default function Carousel() {
         {...flatListOptimizationProps}
         initialScrollIndex={idImagem}
       />
+      <IconButton style={styles.icon} icon={<FontAwesome5
+        onPress={() => { navigation.goBack() }}
+        name={"arrow-circle-left"} size={24} color="black" />} />
       <Pagination index={index}></Pagination>
     </>
   );

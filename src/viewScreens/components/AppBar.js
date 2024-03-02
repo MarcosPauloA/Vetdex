@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, View, TextInput, StyleSheet, Button, Keyboard } from "react-native";
+import { Modal, View, TextInput, StyleSheet, Button, Keyboard, Text, TouchableOpacity } from "react-native";
 // Biblioteca responsável pelo appbar
 import { AppBar, HStack, IconButton } from "@react-native-material/core";
 
@@ -30,9 +30,9 @@ export default function appBar() {
     }
     const [modalVisible, setModalVisible] = useState(false)
     const [fraseBusca, setFraseBusca] = useState("");
-   
+    const [optionsVisible, setOptionsVisible] = useState(false);
     return <>
-        
+        {/*Search Modal that is shown when the search icon is clicked*/}
         <Modal
             style={estilos.modal}
             animationType="fade"
@@ -74,7 +74,27 @@ export default function appBar() {
                 )}
             </View>
         </Modal>
+        
+        {/*Settings modal that is shown when the three dot icon is clicked*/}
+        <Modal
+            style={estilos.modal}
+            animationType="fade"
+            transparent={true}
+            visible={optionsVisible}
+        >   
+            <View style={estilos.container}>
+            <TouchableOpacity style={estilos.configButton}>
+                <Icon name="cog" size={24} color="#fff" />
+            </TouchableOpacity>
+            <Button style={estilos.configText} title="Salvar Offline"></Button>
+            <Button
+                        title="Cancelar"
+                        onPress={() => {setOptionsVisible(false);}}
+            ></Button>
+            </View>
+        </Modal>
 
+        {/*Bellow is the default appbar and icons when nothing is clicked*/}
         <AppBar
             title={titulo}
             leading={props => (
@@ -90,7 +110,7 @@ export default function appBar() {
                         {...props}
                     />
                     <IconButton
-                        onPress={() => alert('Feature em desenvolvimento!')}
+                        onPress={() => setOptionsVisible(!optionsVisible)}
                         icon={props => <Icon name="dots-vertical" {...props} />}
                         {...props}
                     />
@@ -136,5 +156,19 @@ const estilos = StyleSheet.create({
         height: 300,
         width: 300,
         backgroundColor: '#000'
+    },
+    configButton: {
+        width: 45,
+        height: 45,
+        borderRadius: 20,
+        backgroundColor: "#333",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 10,
+      },
+    configText: {
+        height: 40,
+        width: 250,
+        backgroundColor: "#333"
     }
 });

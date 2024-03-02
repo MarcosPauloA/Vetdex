@@ -17,9 +17,13 @@ Fase inicial do projeto, telas feitas com React Native, versão web -> https://s
 - `3D handling`
 - `Topic Shortcuts`
 - ~~`Login`~~ -> Apenas para admin interagirem com o BD
-- `Estilização:` Escolha de imagens e cores do app
+- `Estilização:` Escolha de imagens e cores do app 
 - `Salvamento local` 
-- `Otimização` 
+- `Otimização` -> Eliminar chamadas web duplicadas desnecessárias
+- `Loading Animation`
+- `Refatorar o código melhorando o modelo MVC` 
+- `Deixar o design ser mais responsivo`
+- `Substituir o componente <Modal>`
 
 # :iphone: Screenshots das telas:
 

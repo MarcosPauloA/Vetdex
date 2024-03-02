@@ -8,6 +8,7 @@ import API_URL from '../model/config'
 
 import { useNavigation } from '@react-navigation/native';
 
+import { getAllLocalCategoriasEstudos, saveListaCategoriasEstudo, createTable } from '../model/saveLocalCategoriasDeEstudo';
 
 // Item da lista: um botão com um texto do nome da categoria de estudo
 const Item = ({item, onPress, backgroundColor, textColor}) => (
@@ -40,10 +41,24 @@ export default function MostraCategoriasEstudo() {
         const response = await fetch(`${API_URL}/listaCategoriasEstudo`);
         data = await response.json();
         setListaCategoriasEstudo(data);
-      
+        saveLocally(data);
+
     } catch(error){
-        console.error("Erro ao buscar lista de categorias de estudo ", error)
+        console.error("Erro ao buscar lista de categorias de estudo no banco de dados externo ", error);
+        console.log("Tentando buscar no banco de dados local...");
+        try {
+            const dadosLocais = await getAllLocalCategoriasEstudos();
+            setListaCategoriasEstudo(dadosLocais);
+        } catch (error) {console.log("Erro ao buscar lista de categorias de estudo no banco de dados locais ", error);}
     }
+  }
+
+  // Função responsável por salvar localmente as categorias de estudo
+  async function saveLocally(listaCategoriasDeEstudo){
+    try{
+      createTable();
+      saveListaCategoriasEstudo(listaCategoriasDeEstudo);
+    } catch (error) { console.log("Erro ao salvar localmente ", error); }
   }
 
   // Estado local para ser utilizado na mudança de cor do botão
