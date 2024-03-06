@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View, Alert } from 'react-native';
 import API_URL from '../model/config';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import BuscaNomePatologia from './BuscaNomePatologia';
-
+import { getAllLocalPatologiasNames, getAllLocalPatologias } from '../model/saveLocalPatologia';
 // Item da lista
 const Item = ({nomePatologia, navigation, itemId}) => (
     <View style={estilos.item}>
@@ -45,7 +45,11 @@ export default function MostraNomesPatologias(){
         setListaPatologias(data);
       
     } catch(error){
-        console.error("Erro ao buscar lista de categorias de estudo ", error)
+        console.error("Erro ao buscar lista de categorias de estudo ", error);
+        console.log("Tentando buscar de banco de dados local...");
+        data = await getAllLocalPatologias();
+        setListaPatologias(data);
+
     }
   }
 

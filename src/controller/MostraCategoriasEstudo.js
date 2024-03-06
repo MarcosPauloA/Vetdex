@@ -8,7 +8,7 @@ import API_URL from '../model/config'
 
 import { useNavigation } from '@react-navigation/native';
 
-import { getAllLocalCategoriasEstudos, saveListaCategoriasEstudo, createTable } from '../model/saveLocalCategoriasDeEstudo';
+import { getAllLocalCategoriasEstudos, saveListaCategoriasEstudo, createTable, dropTable } from '../model/saveLocalCategoriasDeEstudo';
 
 // Item da lista: um botão com um texto do nome da categoria de estudo
 const Item = ({item, onPress, backgroundColor, textColor}) => (

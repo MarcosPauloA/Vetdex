@@ -10,11 +10,11 @@ export function createTable(){
     })
 }
 // Para deletar essa tabela utilize a função abaixo (PERIGO IRREVERSÍVEL)
-export function dropTable(){
+export async function dropTable(){
     db.transaction((transaction) => {
-        transaction.executeSql("DROP TABLE localSavedCategoriasEstudos;")
+        transaction.executeSql("DROP TABLE IF EXISTS localSavedCategoriasEstudos;")
     })
-    console.log("Droped table!");
+    console.log("Dropped table!");
 }
 
 // This is to get all items from the table localSavedCategoriaEstudos

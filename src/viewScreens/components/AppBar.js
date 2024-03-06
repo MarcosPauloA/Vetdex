@@ -11,6 +11,8 @@ import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MostraNomesPatologias from "../../controller/MostraNomesPatologias";
 
+import { saveLocally } from "../../controller/MostraDetalhesPatologia";
+
 export default function appBar() {
     // O navigation servirá para retornar a página anterior quando clicado no ícone de voltar
     const navigation = useNavigation();
@@ -86,7 +88,11 @@ export default function appBar() {
             <TouchableOpacity style={estilos.configButton}>
                 <Icon name="cog" size={24} color="#fff" />
             </TouchableOpacity>
-            <Button style={estilos.configText} title="Salvar Offline"></Button>
+            <Button style={estilos.configText} title="Salvar Offline" onPress={ () => {
+                if (route.name === "DetalhesDaPatologia"){
+                    saveLocally();
+                }
+            }}></Button>
             <Button
                         title="Cancelar"
                         onPress={() => {setOptionsVisible(false);}}

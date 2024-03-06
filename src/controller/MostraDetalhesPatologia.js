@@ -3,12 +3,13 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import API_URL from '../model/config';
 // Biblioteca para navegação entre telas
 import { useRoute } from '@react-navigation/native';
-
+import { savePatologia, dropTable, fetchLocalPatologia } from '../model/saveLocalPatologia';
+let listaDetalhes = [];
 export default function MostraDetalhesPatologia(){
     // A route servirá para pegar os parâmetros passados da página anterior
     const route = useRoute();
     const { id } = route.params;
-
+  
     // Estado local para armazenar a lista de patologias
     const [detalhesPatologia, setDetalhesPatologia] = useState({}); 
 
@@ -23,9 +24,13 @@ export default function MostraDetalhesPatologia(){
           const response = await fetch(`${API_URL}/listaPatologias/${id}`);
           data = await response.json();
           setDetalhesPatologia(data);
-        
+          listaDetalhes = data;
       } catch(error){
-          console.error("Erro ao buscar lista de categorias de estudo ", error)
+          console.error("Erro ao buscar lista de categorias de estudo ", error);
+          console.log("Buscando do banco de dados local...");
+          const { nomePatologia } = route.params;
+          dadosLocais = await fetchLocalPatologia(nomePatologia);
+          setDetalhesPatologia(dadosLocais);
       }
     }
 
@@ -46,6 +51,10 @@ export default function MostraDetalhesPatologia(){
         </View> 
       </ScrollView>
     </>
+}
+
+export async function saveLocally(){
+  await savePatologia(listaDetalhes);
 }
 
 const estilos = StyleSheet.create({
