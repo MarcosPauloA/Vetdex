@@ -1,12 +1,12 @@
 import { db } from './localDb'
-import { API_URL } from './config'
+import { saveImages } from './saveLocalImages'
 
 // Função para criar a tabela 
 export function createTable(){
     db.transaction((transaction) => {
         transaction.executeSql("CREATE TABLE IF NOT EXISTS " + 
         "localSavedPatologias " +
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT, nomePatologia TEXT, descricaoDoenca TEXT, sinaisClinicos TEXT, lesoesMacroscopicas TEXT, lesoesMicroscopicas TEXT, referenciasBibliograficas TEXT);")
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT, nomePatologia TEXT UNIQUE, descricaoDoenca TEXT, sinaisClinicos TEXT, lesoesMacroscopicas TEXT, lesoesMicroscopicas TEXT, referenciasBibliograficas TEXT);")
     })
 }
 
@@ -17,14 +17,14 @@ export async function getAllLocalPatologias(){
         transaction.executeSql("SELECT * FROM localSavedPatologias;", [], (transaction, results) => {
           resolve(results.rows._array)
         })
-      })
+      }, (error) =>{console.log(error)})
     })
 }
 
 export async function getAllLocalPatologiasNames(){
     return new Promise((resolve) => {
       db.transaction((transaction) => {
-        transaction.executeSql("SELECT namePatologia FROM localSavedPatologias;", [], (transaction, results) => {
+        transaction.executeSql("SELECT nomePatologia, id FROM localSavedPatologias;", [], (transaction, results) => {
           resolve(results.rows._array)
         })
       })
@@ -41,14 +41,16 @@ export function dropTable(){
 
 export async function savePatologia(listaDetalhesPatologia){
       createTable();
+      //imagens = JSON.stringify(listaDetalhesPatologia.imagens)
+      //if(imagens != "[]"){saveImages(listaDetalhesPatologia.nomePatologia,imagens)}
       return new Promise((resolve) => {
         db.transaction((transaction) => {
         transaction.executeSql("INSERT INTO localSavedPatologias (nomePatologia, descricaoDoenca, sinaisClinicos, lesoesMacroscopicas, lesoesMicroscopicas, referenciasBibliograficas) VALUES (?, ?, ?, ?, ?, ?);", 
         [listaDetalhesPatologia.nomePatologia, listaDetalhesPatologia.descricaoDoenca, listaDetalhesPatologia.sinaisClinicos, listaDetalhesPatologia.lesoesMicroscopicas, listaDetalhesPatologia.lesoesMacroscopicas, listaDetalhesPatologia.referenciasBibliograficas], () => {
-            resolve("Patologia salvada localmente com sucesso!")
+            resolve("Patologia salvada localmente com sucesso!")         
         })
-        }, (error)=>{console.log(error)})
-      })
+        }, (error)=>{console.log(error)} )
+      })  
 }
 
 export async function fetchLocalPatologia(nomePatologia){
