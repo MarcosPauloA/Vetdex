@@ -4,6 +4,7 @@ import API_URL from '../model/config';
 // Biblioteca para navegação entre telas
 import { useRoute } from '@react-navigation/native';
 import { savePatologia, dropTable, fetchLocalPatologia } from '../model/saveLocalPatologia';
+import { dropImageTable } from '../model/saveLocalImages';
 let listaDetalhes = [];
 export default function MostraDetalhesPatologia(){
     // A route servirá para pegar os parâmetros passados da página anterior
@@ -15,6 +16,8 @@ export default function MostraDetalhesPatologia(){
 
     // Efeito colateral para buscar a lista de patologias ao montar o componente
     useEffect(() => {
+    //dropTable()
+    //dropImageTable()
       fetchDetalhesPatologia();
     }, []);
 

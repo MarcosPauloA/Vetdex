@@ -11,6 +11,7 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 import API_URL from "../../model/config";
+import { getAllLocalImages } from "../../model/saveLocalImages";
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -86,6 +87,10 @@ export default function Carousel() {
       
     } catch(error){
         console.error("Erro ao buscar lista de categorias de estudo ", error)
+        imagensLocais = await getAllLocalImages(dadosLocais.nomePatologia);
+        if(JSON.stringify(imagensLocais) != "[]"){
+          setSlideList(imagensLocais)
+        }
     }
   }
 
