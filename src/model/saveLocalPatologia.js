@@ -41,8 +41,8 @@ export function dropTable(){
 
 export async function savePatologia(listaDetalhesPatologia){
       createTable();
-      //imagens = JSON.stringify(listaDetalhesPatologia.imagens)
-      //if(imagens != "[]"){saveImages(listaDetalhesPatologia.nomePatologia,imagens)}
+      imagens = JSON.stringify(listaDetalhesPatologia.imagens)
+      if(imagens != "[]"){saveImages(listaDetalhesPatologia.nomePatologia, listaDetalhesPatologia.imagens)}
       return new Promise((resolve) => {
         db.transaction((transaction) => {
         transaction.executeSql("INSERT INTO localSavedPatologias (nomePatologia, descricaoDoenca, sinaisClinicos, lesoesMacroscopicas, lesoesMicroscopicas, referenciasBibliograficas) VALUES (?, ?, ?, ?, ?, ?);", 

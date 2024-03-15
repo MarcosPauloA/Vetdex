@@ -12,6 +12,8 @@ import {
 import { useRoute, useNavigation } from '@react-navigation/native';
 import API_URL from "../../model/config";
 import { getAllLocalImages } from "../../model/saveLocalImages";
+import * as FileSystem from "expo-file-system";
+
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -43,8 +45,18 @@ const styles = StyleSheet.create({
   paginationDotInactive: { backgroundColor: "lightblue" },
   carousel: {height: windowHeight }
 });
+/*
+const teste = {
+  image1: require(' file:///data/user/0/host.exp.exponent/files/titulo10'),
+  image2: require(' file:///data/user/0/host.exp.exponent/files/titulo21'),
+  // Add more images as needed
+};
+*/
 
-const Slide = memo(function Slide({ data, navigation, id }) {
+
+
+const Slide = memo(function Slide({ data, navigation, id, isImageLocal }) {
+  const localUri = data.image;
   return (
     <View style={styles.slide}>
       <Pressable
@@ -54,7 +66,10 @@ const Slide = memo(function Slide({ data, navigation, id }) {
             idImagem: data.idImagem,
           });
         }}>
-        <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
+        {isImageLocal ? ( <Image source={{uri: localUri}} style={styles.slideImage}/>
+        ) : (
+          <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
+        )}
         {/*<Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
         */}
@@ -73,6 +88,8 @@ export default function Carousel() {
   // Estado local para armazenar a lista de objetos de imagens
   const [slideList, setSlideList] = useState([]); 
 
+  const [isImageLocal, setIsImageLocal] = useState(false)
+
   // Efeito colateral para buscar a lista de objetos de imagens ao montar o componente
   useEffect(() => {
     fetchImagens();
@@ -88,8 +105,11 @@ export default function Carousel() {
     } catch(error){
         console.error("Erro ao buscar lista de categorias de estudo ", error)
         imagensLocais = await getAllLocalImages(dadosLocais.nomePatologia);
+        imagensLocais = JSON.parse(imagensLocais[0].images)
+
         if(JSON.stringify(imagensLocais) != "[]"){
-          setSlideList(imagensLocais)
+          setIsImageLocal(true);
+          setSlideList(imagensLocais);
         }
     }
   }
@@ -155,7 +175,7 @@ export default function Carousel() {
   };
 
   const renderItem = useCallback(function renderItem({ item }) {
-    return <Slide data={item} navigation={navigation} id={id}/>;
+    return <Slide data={item} navigation={navigation} id={id} isImageLocal={isImageLocal}/>;
   }, []);
 
   // Para que se não houver imagem o componente não ocupar espaço na tela foi criado essa condicional

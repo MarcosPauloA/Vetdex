@@ -23,7 +23,7 @@ const Item = ({nomePatologia, navigation, itemId}) => (
 export default function MostraNomesPatologias(){
   // A route servirá para pegar os parâmetros passados da página anterior
   const route = useRoute();
-  let { nomeBuscado } = route.params;
+  const { nomeBuscado } = route.params;
   
   if(nomeBuscado == ""){
   // Efeito colateral para buscar a lista de patologias ao montar o componente
