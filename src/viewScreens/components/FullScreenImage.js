@@ -12,6 +12,7 @@ import API_URL from "../../model/config";
 import { FontAwesome5 } from '@expo/vector-icons';
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 import { IconButton } from "@react-native-material/core";
+import { getAllLocalImages } from "../../model/saveLocalImages";
 
 const styles = StyleSheet.create({
   slide: {
@@ -81,6 +82,12 @@ export default function Carousel() {
 
     } catch (error) {
       console.error("Erro ao buscar lista de categorias de estudo ", error)
+      const { nomePatologia } = route.params;
+      imagensLocais = await getAllLocalImages(nomePatologia.nomePatologia);
+      imagensLocais = JSON.parse(imagensLocais[0].images)
+      if(JSON.stringify(imagensLocais) != "[]"){
+        setSlideList(imagensLocais);
+      }
     }
   }
 
