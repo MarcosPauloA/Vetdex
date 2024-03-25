@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, Dimensions, Text, TouchableOpacity, View } from 'react-native';
 
-import imagemMedVet from '../../../assets/medicina-veterinaria.jpg';
+import imagemMedVet from '../../../assets/medicina-veterinaria2.jpg';
 
 import AppBar from '../components/AppBar.js'
 import MostraCategoriasEstudo from '../../controller/MostraCategoriasEstudo.js';

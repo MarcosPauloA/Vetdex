@@ -74,7 +74,7 @@ export default function MostraCategoriasEstudo() {
     const backgroundColor = item.id === selectedId ? '#0981D1' : '#00AAFF';
     
     // A cor do texto muda do último valor para o primeiro quando clicado
-    const color = item.id === selectedId ? 'white' : 'black';
+    const color = item.id === selectedId ? '#00AAFF' : 'black';
     
     return (
       <Item

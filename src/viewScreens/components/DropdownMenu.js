@@ -11,7 +11,7 @@ const DropdownMenu = () => {
         if (route.name === "DetalhesDaPatologia"){
           saveLocally();
       }}}>
-        <Text style={styles.buttonText}>Salvar Localmente</Text>
+        <Text style={styles.buttonText}>Salvar Offline</Text>
       </TouchableOpacity>
     </View>
   );
@@ -20,12 +20,14 @@ const DropdownMenu = () => {
 const styles = StyleSheet.create({
   button: {
     flexDirection: 'row',
+    borderRadius: 10,
     alignSelf: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#efefef',
     height: 50,
-    width: '75%',
+    width: '100%',
     zIndex: 1,
+    
   },
   buttonText: {
     flex: 1,
@@ -34,7 +36,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   dropdown: {
-    
     height: 50,
     backgroundColor: 'blue',
   },

@@ -37,5 +37,4 @@ const estilos = StyleSheet.create({
     // Cor de fundo do app
     //backgroundColor: '#0E21A0',
   },
- 
 });

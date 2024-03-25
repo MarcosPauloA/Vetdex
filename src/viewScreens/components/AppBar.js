@@ -8,7 +8,7 @@ import { FontAwesome5, Feather } from '@expo/vector-icons';
 // Navegação
 import { useNavigation, useRoute } from '@react-navigation/native';
 // Menu de opcoes quando clicado o icone de tres pontos
-import DropdownMenu from "./DropDownMenu";
+import DropdownMenu from "./DropdownMenu";
 
 export default function appBar() {
     // O navigation servirá para retornar a página anterior quando clicado no ícone de voltar
@@ -33,7 +33,7 @@ export default function appBar() {
     return <>
         {/*Search Modal that is shown when the search icon is clicked*/}
         { searchBarVisible && <View style={estilos.container}>
-                <View style={estilos.searchBarClicada}>
+                <View style={estilos.searchBarNaoClicada}>
                     {/* search Icon */}
                     <Feather
                         name="search"
@@ -67,7 +67,8 @@ export default function appBar() {
                 )}
             </View>
             }
-
+      {!searchBarVisible && 
+        <View>
         {/*Bellow is the default appbar and icons when nothing is clicked*/}
         <AppBar
             title={titulo}
@@ -84,19 +85,21 @@ export default function appBar() {
                         {...props}
                     />
                     <IconButton
-                        onPress={() => (setOptionsVisible(!optionsVisible))}
+                        onPress={() => {if(route.name === "DetalhesDaPatologia"){setOptionsVisible(!optionsVisible)}}}
                         icon={props => <Icon name="dots-vertical" {...props} />}
                         {...props}
                     />
                 </HStack>
             )}
         />
+        </View>}
         {/*Settings modal that is shown when the three dot icon is clicked*/}
-        {optionsVisible && <DropdownMenu/>}
+        {optionsVisible && <View><DropdownMenu/></View>}
     </>
 }
 
 const estilos = StyleSheet.create({
+    teste: {flex:1}, teste2:{},
     container: {
         margin: 5,
         justifyContent: "flex-start",
