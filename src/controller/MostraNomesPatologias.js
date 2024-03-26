@@ -60,7 +60,7 @@ export default function MostraNomesPatologias(){
     async function busca(){
       resultadoBusca = await BuscaNomePatologia(nomeBuscado.fraseBusca)
       if (JSON.stringify(resultadoBusca) != undefined) {
-          setListaPatologias(resultadoBusca)
+          setListaPatologias(resultadoBusca[0])
       }
     }
   // O retorno padrão desta tela é a flatlist abaixo

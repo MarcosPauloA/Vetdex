@@ -56,8 +56,8 @@ export async function savePatologia(listaDetalhesPatologia){
 export async function fetchLocalPatologia(nomePatologia){
   return new Promise((resolve) => {
     db.transaction((transaction) => {
-      transaction.executeSql("SELECT * FROM localSavedPatologias WHERE nomePatologia=(?);", [nomePatologia.nomePatologia], (transaction, results) => {
-        resolve(results.rows._array[0])
+      transaction.executeSql("SELECT * FROM localSavedPatologias WHERE nomePatologia LIKE (?);", ["%"+nomePatologia.nomePatologia+"%"], (transaction, results) => {
+        resolve(results.rows._array)
       })
     })
   })
