@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import API_URL from '../model/config';
 // Biblioteca para navegação entre telas
 import { useRoute } from '@react-navigation/native';
 import { savePatologia, dropTable, fetchLocalPatologia } from '../model/saveLocalPatologia';
 import { dropImageTable } from '../model/saveLocalImages';
+import { GlobalContext } from '../viewScreens/components/GlobalContext';
 let listaDetalhes = [];
 export default function MostraDetalhesPatologia(){
+    const {tamanhoTitulo, tamanhoParagrafo} = useContext(GlobalContext);
+
     // A route servirá para pegar os parâmetros passados da página anterior
     const route = useRoute();
     const { id } = route.params;
@@ -41,16 +44,16 @@ export default function MostraDetalhesPatologia(){
     return <> 
       <ScrollView>
         <View style={estilos.container}>
-          <Text style={estilos.titulo}> Descrição da Doença: </Text>
-          <Text style={estilos.paragrafo}> {detalhesPatologia.descricaoDoenca} </Text>
-          <Text style={estilos.titulo}> Sinais Clínicos: </Text>
-          <Text style={estilos.paragrafo}> {detalhesPatologia.sinaisClinicos} </Text>
-          <Text style={estilos.titulo}> Lesões Macroscópicas: </Text>
-          <Text style={estilos.paragrafo}> {detalhesPatologia.lesoesMacroscopicas} </Text>
-          <Text style={estilos.titulo}> Lesões Microscópicas: </Text>
-          <Text style={estilos.paragrafo}> {detalhesPatologia.lesoesMicroscopicas} </Text>
-          <Text style={estilos.titulo}> Referências Bibliográficas: </Text>
-          <Text style={estilos.paragrafo}> {detalhesPatologia.referenciasBibliograficas} </Text>
+          <Text style={[estilos.titulo, {fontSize: tamanhoTitulo}]}> Descrição da Doença: </Text>
+          <Text style={[estilos.paragrafo, {fontSize: tamanhoParagrafo}]}> {detalhesPatologia.descricaoDoenca} </Text>
+          <Text style={[estilos.titulo, {fontSize: tamanhoTitulo}]}> Sinais Clínicos: </Text>
+          <Text style={[estilos.paragrafo, {fontSize: tamanhoParagrafo}]}> {detalhesPatologia.sinaisClinicos} </Text>
+          <Text style={[estilos.titulo, {fontSize: tamanhoTitulo}]}> Lesões Macroscópicas: </Text>
+          <Text style={[estilos.paragrafo, {fontSize: tamanhoParagrafo}]}> {detalhesPatologia.lesoesMacroscopicas} </Text>
+          <Text style={[estilos.titulo, {fontSize: tamanhoTitulo}]}> Lesões Microscópicas: </Text>
+          <Text style={[estilos.paragrafo, {fontSize: tamanhoParagrafo}]}> {detalhesPatologia.lesoesMicroscopicas} </Text>
+          <Text style={[estilos.titulo, {fontSize: tamanhoTitulo}]}> Referências Bibliográficas: </Text>
+          <Text style={[estilos.paragrafo, {fontSize: tamanhoParagrafo}]}> {detalhesPatologia.referenciasBibliograficas} </Text>
         </View> 
       </ScrollView>
     </>
@@ -70,14 +73,18 @@ const estilos = StyleSheet.create({
     },
 
     paragrafo: {
-      fontSize: 16,
+      // Em uma atualização a fontSize foi trocada por um valor dinamico
+      // Dessa forma o usuário pode aumentar ou diminuir a fonte
+      // fontSize: 16,
       //lineHeight: 26,
       //marginLeft: 11,
       color: "#000000"
     },
 
     titulo: {
-      fontSize: 20,
+      // Em uma atualização a fontSize foi trocada por um valor dinamico
+      // Dessa forma o usuário pode aumentar ou diminuir a fonte
+      // fontSize: 20,
       textAlign: 'center',
       fontWeight: 'bold'
     },
