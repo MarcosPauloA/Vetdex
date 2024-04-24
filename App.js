@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 
 // Importando componentes para navegação entre telas
@@ -11,22 +11,27 @@ import Patologias from './src/viewScreens/Patologias/Patologias.js'
 import DetalhesDaPatologia from './src/viewScreens/DetalhesDaPatologia/DetalhesDaPatologia.js'
 import FullScreenImage from './src/viewScreens/components/FullScreenImage.js'
 
+import { InfoProvider } from './src/viewScreens/components/GlobalContext.js';
+
 // Criando uma navegação em Stack
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
-    <SafeAreaView style={estilos.container}>
-      <StatusBar />
-      <NavigationContainer initialRouteName="Home">
-        <Stack.Navigator screenOptions={{headerShown:false}}>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Patologias" component={Patologias} />
-          <Stack.Screen name="DetalhesDaPatologia" component={DetalhesDaPatologia} />
-          <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaView>
+      <SafeAreaView style={estilos.container}>
+        <StatusBar />
+        <InfoProvider>
+        <NavigationContainer initialRouteName="Home">
+          <Stack.Navigator screenOptions={{headerShown:false}}>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Patologias" component={Patologias} />
+            <Stack.Screen name="DetalhesDaPatologia" component={DetalhesDaPatologia} />
+            <Stack.Screen name="FullScreenImage" component={FullScreenImage} />
+          </Stack.Navigator>
+        </NavigationContainer>
+        </InfoProvider>
+      </SafeAreaView>
   );
 }
  
