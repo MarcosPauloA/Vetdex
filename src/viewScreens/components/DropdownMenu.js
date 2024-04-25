@@ -1,12 +1,22 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Switch } from 'react-native';
 import { saveLocally } from '../../controller/MostraDetalhesPatologia';
 import { useRoute } from '@react-navigation/native';
 import { GlobalContext } from './GlobalContext';
 
 const DropdownMenu = () => {
-  const {setTamanhoTitulo, setTamanhoParagrafo, tamanhoParagrafo, tamanhoTitulo} = useContext(GlobalContext);
+  // Variaveis para 
+  const {setTamanhoTitulo, setTamanhoParagrafo, tamanhoParagrafo, tamanhoTitulo,
+    mostraImagemSensivel, setMostraImagemSensivel} = useContext(GlobalContext);
   const route = useRoute();
+
+  // Variaveis para o <Switch>
+  const [isEnabled, setIsEnabled] = useState(mostraImagemSensivel);
+  const toggleSwitch = () => { 
+    setIsEnabled(previousState => !previousState); 
+    if(isEnabled){setMostraImagemSensivel(false)}
+    else{setMostraImagemSensivel(true)}
+  }
   return (  
     <View>
       <View style={styles.dropdown}>
@@ -35,6 +45,16 @@ const DropdownMenu = () => {
             }}}>
             <Text style={styles.buttonText} > + </Text>
           </TouchableOpacity>
+      </View>
+      <View style={styles.button}>
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        /> 
+        <Text style={styles.buttonText}>Mostrar Imagens Sensíveis</Text>
       </View>
     </View>
   );

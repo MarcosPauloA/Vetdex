@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useRef, useState, useEffect } from "react";
+import React, { useCallback, memo, useRef, useState, useEffect, useContext } from "react";
 import {
   FlatList,
   View,
@@ -13,6 +13,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import API_URL from "../../model/config";
 import { getAllLocalImages } from "../../model/saveLocalImages";
 import * as FileSystem from "expo-file-system";
+import { GlobalContext } from "./GlobalContext";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -43,13 +44,46 @@ const styles = StyleSheet.create({
   },
   paginationDotActive: { backgroundColor: "gray" },
   paginationDotInactive: { backgroundColor: "lightblue" },
-  carousel: {height: windowHeight }
+  carousel: {height: windowHeight },
+  sensitiveContentButton: { 
+    position: 'absolute', 
+    left: 130, 
+    top: 70, 
+    borderRadius: 50, 
+    backgroundColor: 'white',
+    padding: 10
+  },
+  sensitiveContentTitle: {
+    position: 'absolute', 
+    left: 120, 
+    top: 5 ,
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  sensitiveContentDescription: {
+    position: 'absolute', 
+    left: 5, 
+    top: 30 ,
+    fontSize: 16
+  }
 });
 
 const Slide = memo(function Slide({ data, navigation, id, nomePatologia }) {
- 
+  const [mostraImagemSensivel, setMostraImagemSensivel] = useState(false);
+  const preferenciaUsuario = useContext(GlobalContext).mostraImagemSensivel;
+
   return (
     <View style={styles.slide}>
+        { !preferenciaUsuario && !mostraImagemSensivel && <View>
+          <Image source={{ uri: data.image }} style={styles.slideImage} blurRadius={15}/>
+          <Text style={styles.sensitiveContentTitle}>Imagem Sensível</Text>
+          <Text style={styles.sensitiveContentDescription}>Essa imagem pode conter conteúdo pertubador para algumas pessoas</Text>
+          <Pressable style={styles.sensitiveContentButton} onPress={() => {setMostraImagemSensivel(true)}}>
+            <Text style={{fontWeight: 'bold'}}>Mostrar Imagem</Text>
+          </Pressable>
+        </View>
+        }
+        {(preferenciaUsuario || mostraImagemSensivel) && 
       <Pressable
         onPress={() => {
           navigation.navigate('FullScreenImage',{
@@ -59,12 +93,13 @@ const Slide = memo(function Slide({ data, navigation, id, nomePatologia }) {
           });
         }}>
 
-        <Image source={{ uri: data.image }} style={styles.slideImage}></Image>
+        <Image source={{ uri: data.image }} style={styles.slideImage}/>
       
         {/*<Text style={styles.slideTitle}>{data.title}</Text>
         <Text style={styles.slideSubtitle}>{data.subtitle}</Text>
         */}
       </Pressable>
+    }
     </View>
   );
 });
