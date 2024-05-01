@@ -5,7 +5,6 @@ import imagemMedVet from '../../../assets/medicina-veterinaria2.jpg';
 
 import AppBar from '../components/AppBar.js'
 import MostraCategoriasEstudo from '../../controller/MostraCategoriasEstudo.js';
-
 const screenWidth = Dimensions.get('screen').width;
 const larguraImagemMedVet = 900;
 const alturaImagemMedVet = 600;
