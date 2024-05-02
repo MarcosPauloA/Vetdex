@@ -6,10 +6,12 @@ export async function GetDoencasNomes() {
   return data;
 }
 
-export async function GetDoencaById(id){
+export async function GetDoencaById(id) {
   const { data } = await supabase.from("Doenca").select('*').eq('id', id);
   return data;
 }
 
-
-
+export async function GetImages(id) {
+  const { data } = await supabase.from("Doenca").select('doenca_imagem').eq('id', id);
+  return data;
+}
