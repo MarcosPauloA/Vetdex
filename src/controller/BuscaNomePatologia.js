@@ -1,3 +1,4 @@
+// Arquivo que busca o nome da patologia pesquisado pelo usuário na mock api
 import API_URL from "../model/config";
 import { fetchLocalPatologia } from "../model/saveLocalPatologia";
 

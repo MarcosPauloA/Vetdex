@@ -1,3 +1,4 @@
+// Arquivo responsável por mostrar os nomes das patologias do supabase
 import React, {useEffect, useState} from 'react';
 import { FlatList, StyleSheet, Text, View, Alert } from 'react-native';
 import API_URL from '../model/config';

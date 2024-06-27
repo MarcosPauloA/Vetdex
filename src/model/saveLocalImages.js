@@ -1,3 +1,4 @@
+// Arquivo de salvamento local das imagens
 import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack'
 import { db } from './localDb'
 import * as FileSystem from 'expo-file-system'

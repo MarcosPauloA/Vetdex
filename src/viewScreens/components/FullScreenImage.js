@@ -1,3 +1,4 @@
+// Arquivo de imagem em carrosel mas em tela cheia
 import React, { useCallback, memo, useRef, useState, useEffect } from "react";
 import {
   FlatList,

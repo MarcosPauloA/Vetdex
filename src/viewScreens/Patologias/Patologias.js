@@ -1,3 +1,4 @@
+// Tela que mostra os nomes das patologias
 import React from 'react';
 
 import { View, StyleSheet, Text, FlatList } from 'react-native';
@@ -18,7 +19,7 @@ export default function Patologias(){
       <AppBar/>
       <View style={estilos.fundo}>
         {
-        // <MostraNomesPatologias/>
+        // <MostraNomesPatologias/> Inutilizado após nomes das patologias virem do supabase ao invés da mockAPI
         }
         <MostraNomesDoencaSupabases/>
       </View>

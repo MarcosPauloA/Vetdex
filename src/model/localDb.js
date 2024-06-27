@@ -1,3 +1,4 @@
+// Arquivo que abre a conexão com o banco de dados local
 import * as SQLite from 'expo-sqlite'
 
 function openDb(){

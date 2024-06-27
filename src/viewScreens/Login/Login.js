@@ -1,3 +1,4 @@
+// Tela Login que foi descontinuada e não é mais necessária
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, Image, Button, Alert } from 'react-native';
 import iconeMedicinaVet from '../../../assets/iconeMedicinaVet.png';

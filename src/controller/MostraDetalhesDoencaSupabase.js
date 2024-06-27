@@ -1,3 +1,4 @@
+// Arquivo que mostra detalhes da patologia usando supabase
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import API_URL from '../model/config';
@@ -77,7 +78,10 @@ const estilos = StyleSheet.create({
       // fontSize: 16,
       //lineHeight: 26,
       //marginLeft: 11,
-      color: "#000000"
+      color: "#000000",
+      backgroundColor: "#fff",
+      padding: 5,
+      marginBottom: 20
     },
 
     titulo: {
@@ -85,6 +89,9 @@ const estilos = StyleSheet.create({
       // Dessa forma o usuário pode aumentar ou diminuir a fonte
       // fontSize: 20,
       textAlign: 'center',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      textShadowColor: 'rgba(0, 0, 0, 0.75)',
+      textShadowOffset: { width: -1, height: 1 },
+      textShadowRadius: 20,
     },
   });

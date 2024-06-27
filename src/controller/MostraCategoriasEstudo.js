@@ -1,3 +1,4 @@
+// Arquivo que mostra nomes de categorias de estudo
 import React, {useState, useEffect} from 'react';
 import { FlatList, TouchableOpacity, StyleSheet, Text, Image, View} from 'react-native';
 

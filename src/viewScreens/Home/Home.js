@@ -1,3 +1,4 @@
+// Tela Inicial do aplicativo
 import React from 'react';
 import { StyleSheet, Image, Dimensions, Text, TouchableOpacity, View } from 'react-native';
 

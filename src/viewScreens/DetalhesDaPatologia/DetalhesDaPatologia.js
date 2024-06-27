@@ -1,3 +1,4 @@
+// Tela que mostra os detalhes da patologia
 import React from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import AppBar from '../components/AppBar.js';
@@ -11,6 +12,9 @@ export default function DetalhesDaPatologia(){
         <AppBar/>
         <ScrollView>
           <ImageCarouselSupabase/>
+          {
+          //<MostraDetalhesDaPatologia/> Ao mudar a API para o supabase foi trocado o arquivo utilizado
+          }
           <MostraDetalhesDoencaSupabase/>
         </ScrollView>
     </>

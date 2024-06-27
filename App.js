@@ -1,3 +1,4 @@
+// Arquivo principal onde estão as rotas para as telas
 import React, { useContext } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 

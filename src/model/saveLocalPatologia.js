@@ -1,3 +1,4 @@
+// Arquivo de salvamento local de informações da patologia usando SQLite
 import { db } from './localDb'
 import { saveImages } from './saveLocalImages'
 

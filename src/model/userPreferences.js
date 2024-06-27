@@ -1,4 +1,3 @@
-// Arquivo de salvamento local de nomes de categorias de estudo como "Patologia"
 // Importando banco de dados local
 import { db } from "./localDb"
 
@@ -6,38 +5,30 @@ import { db } from "./localDb"
 export function createTable(){
     db.transaction((transaction) => {
         transaction.executeSql("CREATE TABLE IF NOT EXISTS " + 
-        "localSavedCategoriasEstudos " +
-        "(id INTEGER PRIMARY KEY AUTOINCREMENT, nomeCategoriaEstudo TEXT);")
+        "userPreferences " +
+        "(id INTEGER PRIMARY KEY AUTOINCREMENT, tamanhoLetra INTEGER, mostraImagemSensivel TINYINT(1));")
     })
 }
 // Para deletar essa tabela utilize a função abaixo (PERIGO IRREVERSÍVEL)
 export async function dropTable(){
     db.transaction((transaction) => {
-        transaction.executeSql("DROP TABLE IF EXISTS localSavedCategoriasEstudos;")
+        transaction.executeSql("DROP TABLE IF EXISTS userPreferences;")
     })
     console.log("Dropped table!");
 }
 
-// This is to get all items from the table localSavedCategoriaEstudos
-export async function getAllLocalCategoriasEstudos(){
+// This is to get all items from the table 
+export async function getUserPreferences(){
     return new Promise((resolve) => {
       db.transaction((transaction) => {
-        transaction.executeSql("SELECT * FROM localSavedCategoriasEstudos;", [], (transaction, results) => {
+        transaction.executeSql("SELECT * FROM userPreferences;", [], (transaction, results) => {
           resolve(results.rows._array)
         })
       })
     })
   }
 
-export async function saveListaCategoriasEstudo(listaCategorias){
-    for(let i = 0; i < listaCategorias.length; i++){
-        if (listaCategorias[i].nomeCategoriaEstudo != undefined){
-            addCategoriaEstudo(listaCategorias[i].nomeCategoriaEstudo);
-        }
-    }
-}
-
-export async function addCategoriaEstudo(nomeCategoriaEstudo) {
+export async function firstUserPreference(nomeCategoriaEstudo) {
 
     return new Promise((resolve) => {
         db.transaction((transaction) => {
@@ -46,5 +37,4 @@ export async function addCategoriaEstudo(nomeCategoriaEstudo) {
         })
         })
     })
-  
 }

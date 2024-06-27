@@ -1,3 +1,4 @@
+// Arquivo responsáve por mostrar os nomes das patologias usando mockAPI
 import React, {useEffect, useState} from 'react';
 import { FlatList, StyleSheet, Text, View, Alert } from 'react-native';
 import API_URL from '../model/config';

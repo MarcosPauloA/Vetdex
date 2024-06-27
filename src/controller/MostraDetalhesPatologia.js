@@ -1,3 +1,4 @@
+// Arquivo que mostra detalhes da patologia usando mockApi
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import API_URL from '../model/config';

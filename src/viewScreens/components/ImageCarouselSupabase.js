@@ -1,3 +1,4 @@
+// Componente de carrosel de imagens buscadas no supabase
 import React, { useCallback, memo, useRef, useState, useEffect, useContext } from "react";
 import {
   FlatList,

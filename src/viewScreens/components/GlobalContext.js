@@ -1,3 +1,4 @@
+// Arquivo em que é enviado dados de variáveis para todas telas
 import { createContext, useState } from "react";
 
 export const GlobalContext = createContext({});

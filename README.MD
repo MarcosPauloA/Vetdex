@@ -6,7 +6,16 @@
     :construction:  Projeto em construção  :construction:
 </h4>
 
-Fase inicial do projeto, telas feitas com React Native, versão web -> https://snack.expo.dev/@marcos_guida/github.com-marcospauloa-vetdex?platform=android<br/> 
+É possível testar o aplicativo em uma versão anterior através do link -> https://snack.expo.dev/@marcos_guida/github.com-marcospauloa-vetdex?platform=android<br/> Nesta versão é utilizado uma mockAPI que foi substituída posteriormente por Supabase<br/>
+
+## Setup Local
+1. Navegue até o local onde deseja a pasta do projeto em seu terminal de escolha: `cd Documents`
+2. Clone o repositório: `git clone https://github.com/MarcosPauloA/vetdex`
+3. Navegue até o diretório do projeto `cd vetdex`
+4. Instale as dependências: `npm install`
+5. Inicie seu emulador de preferência ex: Android Studio ou seu próprio dispositivo físico com expo instalado
+6. Inicie o servidor de desenvolvimento: `npx expo start`
+7. Entre usando o APP expo
 
 # :hammer: Missing Features:
 
@@ -14,16 +23,16 @@ Fase inicial do projeto, telas feitas com React Native, versão web -> https://s
 - ~~`Integração do Banco de Dados`~~
 - ~~`Query Feature`~~ :mag_right:
 - ~~`viewing images as a sliding gallery`~~
-- `3D handling`
-- `Topic Shortcuts`
+- ~~`3D handling`~~
+- ~~`Topic Shortcuts`~~
 - ~~`Login`~~ -> Apenas para admin interagirem com o BD
 - `Estilização:` Escolha de imagens e cores do app 
-- `Salvamento local` 
+- `Salvamento local` -> É necessário testar o salvamento local novamente utilizando o supabase
 - `Otimização` -> Eliminar chamadas web duplicadas desnecessárias
-- `Loading Animation`
-- `Refatorar o código melhorando o modelo MVC` 
+- `Loading Animation`-> Animações em geral
+- ~~`Refatorar o código melhorando o modelo MVC`~~
 - `Deixar o design ser mais responsivo`
-- `Substituir o componente <Modal>`
+- ~~`Substituir o componente <Modal>`~~
 
 # :iphone: Screenshots das telas:
 

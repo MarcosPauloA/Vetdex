@@ -1,3 +1,4 @@
+// Arquivo que faz requisições ao supabase
 import { useEffect, useState } from "react";
 import { supabase } from "./supabase";
 

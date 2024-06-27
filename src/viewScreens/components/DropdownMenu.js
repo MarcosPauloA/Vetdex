@@ -1,3 +1,4 @@
+// Arquivo do componente do ícone de três pontos no canto superior direito do app
 import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Switch } from 'react-native';
 import { saveLocally } from '../../controller/MostraDetalhesPatologia';
@@ -5,7 +6,7 @@ import { useRoute } from '@react-navigation/native';
 import { GlobalContext } from './GlobalContext';
 
 const DropdownMenu = () => {
-  // Variaveis para 
+  // Variaveis para tamanho do texto da tela e se mostra ou não as imagens, buscados do GlobalContext
   const {setTamanhoTitulo, setTamanhoParagrafo, tamanhoParagrafo, tamanhoTitulo,
     mostraImagemSensivel, setMostraImagemSensivel} = useContext(GlobalContext);
   const route = useRoute();

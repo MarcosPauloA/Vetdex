@@ -1,3 +1,4 @@
+// Arquivo do componente que fica no topo do aplicativo, com os ícones
 import React, { useState } from "react";
 import { Modal, View, TextInput, StyleSheet, Button, Keyboard, Text, TouchableOpacity } from "react-native";
 // Biblioteca responsável pelo appbar
